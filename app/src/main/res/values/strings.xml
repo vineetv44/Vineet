@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">AppStreetTask</string>
+    <string name="app_title">App Street Task</string>
+    <string name="progress_title_list">Loading Specific data…</string>
+    <string name="progress_please_wait">Please wait..!!</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="permissin_granted">Permission Granted</string>
+    <string name="transition_element_name">imageMain</string>
+    <string name="loading_error">Error Loading Details</string>
+    <string name="progree_title_detail">Loading Data Details…</string>
+    <string name="author">Author - </string>
+    <string name="user">User - </string>
+    <string name="repo">Repo - </string>
+    <string name="description">Description - </string>
+    <string name="no_internet_msg">No Internet, Try Again..</string>
+    <string name="somthing_wrong_msg">Something went wrong..</string>
+    <string name="name">Name</string>
+    <string name="subname">Subname</string>
+    <string name="other_details">Other Details</string>
+    <string name="placeholder_image">placeholder_image</string>
+    <string name="no_internet_available">No internet available..!!!</string>
+    <string name="try_again">Try Again</string>
+    <string name="app_street_task_details_title">AppStreet Task Details</string>
+</resources>

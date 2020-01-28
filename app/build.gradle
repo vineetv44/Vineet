@@ -1,0 +1,119 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+def libs = rootProject.ext.libraries
+def cfg = rootProject.ext.configuration
+
+android {
+    compileSdkVersion cfg.androidCompileSdkVersion
+    buildToolsVersion cfg.androidBuildToolsVersion
+
+    defaultConfig {
+        applicationId cfg.appID
+        minSdkVersion cfg.androidMinSdkVersion
+        targetSdkVersion cfg.androidTargetSdkVersion
+        versionCode cfg.appVersionCode
+        versionName cfg.appVersionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+
+    dexOptions {
+        preDexLibraries true
+        javaMaxHeapSize "4g"
+        dexInProcess = true
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", URL_DEV)
+        }
+        release {
+            buildConfigField("String", "BASE_URL", URL_PROD)
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+        incremental false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // android design
+    implementation "com.android.support:design:${libs.androidSupportVersion}"
+    implementation "com.android.support:support-v4:${libs.androidSupportVersion}"
+    implementation "com.android.support:appcompat-v7:${libs.androidSupportVersion}"
+    implementation "com.android.support:support-core-utils:${libs.androidSupportVersion}"
+    implementation "com.android.support:transition:${libs.androidSupportVersion}"
+    implementation "com.android.support:support-vector-drawable:${libs.androidSupportVersion}"
+    implementation "com.android.support:gridlayout-v7:${libs.androidSupportVersion}"
+    implementation "com.android.support:recyclerview-v7:${libs.androidSupportVersion}"
+    implementation "com.android.support:cardview-v7:${libs.androidSupportVersion}"
+    implementation "androidx.constraintlayout:constraintlayout:${libs.constraintlayout}"
+    implementation "androidx.core:core-ktx:${libs.core_ktx}"
+    implementation "androidx.appcompat:appcompat:${libs.appcompat}"
+    implementation "com.google.android.material:material:${libs.legacy_support}"
+    implementation "androidx.legacy:legacy-support-v4:${libs.legacy_support}"
+
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${libs.kotlin_version}"
+
+    //testing libraries
+    testImplementation "junit:junit:${libs.jUnitVersion}"
+    testImplementation "org.mockito:mockito-core:${libs.mockitoVersion}"
+    androidTestImplementation "org.mockito:mockito-core:${libs.mockitoVersion}"
+    androidTestImplementation "com.android.support:support-annotations:${libs.androidSupportVersion}"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:${libs.dexmakerVersion}"
+    androidTestImplementation "com.android.support.test:runner:${libs.testRunnerVersion}"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:${libs.espressoVersion}"
+    androidTestImplementation "com.android.support.test:rules:${libs.testRunnerVersion}"
+
+    // JSON Converter
+    implementation "com.google.code.gson:gson:${libs.gsonVersion}"
+
+    //retrofit2
+    implementation "com.squareup.retrofit2:retrofit:${libs.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${libs.retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${libs.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-moshi:${libs.retrofitVersion}"
+
+    // Network
+    implementation "com.squareup.okhttp3:logging-interceptor:${libs.interceptor}"
+    implementation "com.squareup.okhttp3:okhttp:${libs.okhttp}"
+
+    // dagger
+    implementation "com.google.dagger:dagger:${libs.daggerVersion}"
+    implementation "com.google.dagger:dagger-android:${libs.daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${libs.daggerVersion}"
+
+    // for the support libraries
+    kapt "com.google.dagger:dagger-android-processor:${libs.daggerVersion}"
+    kapt "com.google.dagger:dagger-compiler:${libs.daggerVersion}"
+
+    //RxJava libraries
+    implementation "io.reactivex.rxjava2:rxandroid:${libs.rxAndroidVersion}"
+    implementation "io.reactivex.rxjava2:rxjava:${libs.rxJavaVersion}"
+    implementation "com.squareup.picasso:picasso:${libs.picasso}"
+
+    //LiveData and Lifecycle android component
+    implementation "android.arch.lifecycle:runtime:${libs.architectureComponentVersion}"
+    implementation "android.arch.lifecycle:extensions:${libs.architectureComponentVersion}"
+    implementation "android.arch.lifecycle:reactivestreams:${libs.architectureComponentVersion}"
+    kapt "android.arch.lifecycle:compiler:${libs.architectureComponentVersion}"
+
+}
